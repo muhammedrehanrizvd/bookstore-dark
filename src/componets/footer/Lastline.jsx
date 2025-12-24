@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 
-function Lline() {
+function Lastline() {
     const text = '© 2025 BookStore. All rights reserved.'
       const [displayText, setDisplayText] = useState('')
       const [index, setIndex] = useState(0)
@@ -41,4 +41,4 @@ function Lline() {
       )
     }
 
-export default Lline
+export default Lastline

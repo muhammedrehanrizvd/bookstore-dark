@@ -2,3 +2,30 @@
 .font-oswald {
   font-family: 'Oswald', sans-serif;
 }
+@keyframes ballBounce {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-10px); }
+  50%  { transform: translateY(0); }
+  70%  { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+.hover-ball:hover {
+  animation: ballBounce 0.6s ease-out;
+}
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* utility class */
+.fade-up {
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
