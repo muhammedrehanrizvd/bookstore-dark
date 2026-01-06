@@ -1,4 +1,9 @@
 @import "tailwindcss";
+
+body {
+  overflow-x: hidden;
+}
+
 .font-oswald {
   font-family: 'Oswald', sans-serif;
 }
@@ -27,5 +32,12 @@
 /* utility class */
 .fade-up {
   animation: fadeUp 0.8s ease-out forwards;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 

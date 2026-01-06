@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Card({title,description,className}) {
+  
     return (
 <>
 <div className={`relative overflow-hidden rounded-2xl h-auto  w-[95vw]  md:w-[45vmax] px-12 
