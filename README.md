@@ -41,7 +41,8 @@ Live Demo: [Add your deployed link here, e.g., Vercel/Netlify]
 
 1. Clone the repo
    ```bash
-   git clone https://github.com/your-username/bookstore.git
+  git clone https://github.com/muhammedrehanrizvd/bookstore-dark.git
+
    cd bookstore
 
    Why I Built This
