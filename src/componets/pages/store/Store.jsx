@@ -1,6 +1,6 @@
 import React, { useState,useMemo } from "react";
 import Head from "./Head";
-import StoreData from "../../data/StoreData";
+import StoreData from "../../../data/StoreData";
 import CardStore from "./CardStore";
 import { motion, AnimatePresence } from "framer-motion";
 

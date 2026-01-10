@@ -1,7 +1,8 @@
 import React from 'react';
 import Top from './Top';
 import Middle from './Middle';
-import useLatestBook from '../customhook/useLatestBook';
+import useLatestBook from "../../customhook/useLatestBook";
+
 import Bookcard from './Bookcard';
 
 function Home() {

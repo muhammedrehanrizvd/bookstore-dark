@@ -8,7 +8,7 @@ export default function Top() {
                 {/* Background Image */}
                 <img
                     className="w-full h-full object-cover"
-                    src="Homeimage.jpg"
+                    src="/Homeimage.jpg"
                     alt="A captivating bookstore scene inviting you to explore endless stories"
                 />
 

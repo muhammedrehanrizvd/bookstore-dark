@@ -1,5 +1,5 @@
 import React from 'react'
-import { benefits } from '../../data/Benefit'
+import { benefits } from '@/data/Benefit'
 import Card from './Card'
 
 

@@ -47,17 +47,7 @@ function Allbook() {
       {/* Optional Closing CTA */}
       <div className="mt-24 text-center">
         <p className="text-gray-400 text-lg mb-6">Can't find what you're looking for?</p>
-        <button className="
-          px-10 py-4 
-          bg-gradient-to-r from-purple-600 to-pink-600 
-          text-white font-semibold text-lg rounded-full 
-          shadow-2xl shadow-purple-600/50 
-          hover:shadow-pink-600/60 
-          hover:scale-105 
-          transition-all duration-500
-        ">
-          Browse All Books
-        </button>
+        
       </div>
     </div>
   );

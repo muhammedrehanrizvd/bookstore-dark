@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js (ya .cjs)
 module.exports = {
   content: [
     "./index.html",
@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require("tailwindcss-animate")],
-
+  plugins: [
+    require('tailwindcss-animate'),  // ← Yeh line add kar
+  ],
 };

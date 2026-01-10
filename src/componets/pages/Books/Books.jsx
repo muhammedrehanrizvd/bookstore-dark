@@ -5,7 +5,7 @@ import books from "./booksdata";
 import BookCard from "./BookCard";
 import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import AnimatedContainer from "../animations/CGanimate";
+import AnimatedContainer from "@/componets/animations/CGanimate";
 function Books() {
   const [isDrop, setDrop] = useState(false);
   const [activeGenre, setActiveGenre] = useState(null);

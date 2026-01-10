@@ -1,11 +1,16 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
+import { addToCart, } from "../../../App/slices/CartSlice";
 
 import { FaBook, FaStar, FaRegStar, FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa';
  
 
 const BookDetail = ({ books }) => {
   const { id } = useParams(); // get id from URL
+  const dispatch = useDispatch();
+  const CartItems = useSelector(state=>state.cart.items);
+  const Isincart = CartItems.find(item=>item.id==id);
   const navigate = useNavigate();
   const book = books.find(b => b.id == id);
 
@@ -104,14 +109,17 @@ const BookDetail = ({ books }) => {
           <div className="space-y-4">
             {/* Quantity & Add to Cart */}
             <div className="flex items-center gap-6">
-              <div className="flex items-center border border-gray-300 rounded-lg">
-                <button className="px-4 py-3 hover:bg-gray-100">-</button>
-                <span className="px-6 py-3 font-medium">1</span>
-                <button className="px-4 py-3 hover:bg-gray-100">+</button>
-              </div>
+              
+              <button onClick={()=>{
+                if(!Isincart){
+                  dispatch(addToCart(book));
+                  navigate('/cart');
+                }else{
+                  navigate('/cart')
+                }
+              }} className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition transform hover:scale-105">
+                 {Isincart ? "Go to Cart" : "Add to Cart"}
 
-              <button className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition transform hover:scale-105">
-                Add to Cart
               </button>
             </div>
 
