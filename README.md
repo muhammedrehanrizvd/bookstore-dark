@@ -2,8 +2,8 @@
 
 Welcome to **BookStore** — a beautiful, responsive, and fully functional online bookstore built with modern web technologies. This project is my passion project to create a premium reading experience for book lovers, just like the big players (think Bookshop.org meets Goodreads with a dark, elegant twist).
 
-Live Demo: [Add your deployed link here, e.g., Vercel/Netlify]  
-(Coming soon after deployment!)
+Live Demo: [https://bookstore-dark-g9vj.vercel.app]  
+
 
 ## ✨ Features
 
