@@ -15,7 +15,7 @@ import books from './components/pages/Books/booksdata.js';
 import JoinForm from './components/form/JoinForm.jsx';
 // ✅ CORRECT
 import { store } from "./App/ReduxStore.js";
-import Cart from './components/pages/cart/cart.jsx';
+import Cart from './components/pages/cart/Cart.jsx';
 
 const router = createBrowserRouter([
   {
