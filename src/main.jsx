@@ -6,16 +6,16 @@ import { Provider } from 'react-redux';
 
 import './index.css'
 import App from './App.jsx'
-import Home from './componets/pages/home/Home.jsx';
-import About from './componets/pages/about/About.jsx';
-import Store from './componets/pages/store/Store.jsx';
-import Books from './componets/pages/Books/Books.jsx';
-import BookDetail from './componets/pages/Books/BookDetail.jsx';
-import books from './componets/pages/Books/booksdata.js';
-import JoinForm from './componets/form/JoinForm.jsx';
+import Home from './components/pages/home/Home.jsx';
+import About from './components/pages/about/About.jsx';
+import Store from './components/pages/store/Store.jsx';
+import Books from './components/pages/Books/Books.jsx';
+import BookDetail from './components/pages/Books/BookDetail.jsx';
+import books from './components/pages/Books/booksdata.js';
+import JoinForm from './components/form/JoinForm.jsx';
 // ✅ CORRECT
 import { store } from "./App/ReduxStore.js";
-import Cart from './componets/pages/cart/cart.jsx';
+import Cart from './components/pages/cart/cart.jsx';
 
 const router = createBrowserRouter([
   {

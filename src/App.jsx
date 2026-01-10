@@ -1,8 +1,8 @@
 import './App.css'
 import { Outlet } from 'react-router-dom'
-import  Nav from './componets/header/Nav'
-import Footer from './componets/footer/Footer'
-import Lastline from './componets/footer/Lastline'
+import  Nav from './components/header/Nav'
+import Footer from './components/footer/Footer'
+import Lastline from './components/footer/Lastline'
 function App() {
   return (
     <>
