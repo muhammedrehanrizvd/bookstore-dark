@@ -12,7 +12,11 @@ import Store from './components/pages/store/Store.jsx';
 import Books from './components/pages/Books/Books.jsx';
 import BookDetail from './components/pages/Books/BookDetail.jsx';
 import books from './components/pages/Books/booksdata.js';
-import JoinForm from './components/form/JoinForm.jsx';
+import Signup from './components/pages/authform/Signup.jsx';
+import Login from './components/pages/authform/Login.jsx';
+import ProtectedRoute from './components/pages/authform/ProtectedRoute.jsx';
+import Dashboard from './components/pages/dashboard/Dashboard.jsx';
+
 // ✅ CORRECT
 import { store } from "./App/ReduxStore.js";
 import Cart from './components/pages/cart/Cart.jsx';
@@ -39,13 +43,24 @@ const router = createBrowserRouter([
                 element:<BookDetail books={books} />,
                  }]
             },
-            {
-              path:"join",
-              element:<JoinForm/>,
-            },
+            
             {
              path:"cart",
               element:<Cart/>, 
+            },
+            {
+              path:"signup",
+              element:<Signup/>
+            },
+            {
+              path:"login",
+              element:<Login/>
+            },
+            {
+              path:'dashboard',
+              element:<ProtectedRoute>
+                <Dashboard/>
+                </ProtectedRoute>,
             }
     ],
   }

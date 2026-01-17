@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Humberg from './Humberg';
 import { selectTotalQuantity } from '../../App/slices/CartSelectors';
-
+import AuthButtons from '../form/AuthButtons';
 function Nav() {
   const navLinkClass = ({ isActive }) =>
     `relative px-5 py-3 text-gray-300 font-medium text-base 
@@ -86,21 +86,7 @@ function Nav() {
           </NavLink>
 
           {/* Desktop Join Button */}
-          <NavLink
-            to="/join"
-            className="hidden sm:inline-flex items-center justify-center px-7 py-3 
-                       bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 
-                       text-white font-semibold text-base rounded-full
-                       shadow-lg shadow-purple-600/40
-                       hover:shadow-2xl hover:shadow-pink-600/50
-                       hover:scale-105
-                       transition-all duration-400
-                       relative overflow-hidden group"
-          >
-            <span className="relative z-10">Join Now</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
-                            -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          </NavLink>
+          <AuthButtons/>
 
           {/* Mobile Hamburger Trigger – Only this stays in Nav */}
           <div className="sm:hidden">
