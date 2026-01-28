@@ -41,7 +41,7 @@ export const checkAuth = createAsyncThunk(
             const userData = await authService.getCurrentUser()
             return userData
         } catch (error) {
-            return rejectWithValue(error.message || 'Not authenticated')
+            return rejectWithValue(null)
         }
     }
 )
@@ -124,7 +124,7 @@ const authSlice = createSlice({
                 state.user = null
                 state.loading = false
                 state.isAuthenticated = false
-                state.error = action.payload;
+                state.error = null;
             })
             
             // LOGOUT CASES

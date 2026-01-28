@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { Fade as Hamburger } from 'hamburger-react';
 import { NavLink } from 'react-router-dom';
-
 import { selectTotalQuantity } from '../../App/slices/CartSelectors';
 import { createPortal } from "react-dom";
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../../App/slices/authSlice';
-
 
 function Humberg({ className }) {
   const [open, setOpen] = useState(false);
   const cartTotalQty = useSelector(selectTotalQuantity) || 0;
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const navLinkClass = ({ isActive }) => `
@@ -74,6 +72,7 @@ function Humberg({ className }) {
 
           {/* Navigation */}
           <nav className="flex-1 flex flex-col justify-center px-6 space-y-3">
+            {/* Main Navigation Links */}
             {[
               { to: "/", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6", label: "Home" },
               { to: "/about", icon: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z", label: "About" },
@@ -93,7 +92,26 @@ function Humberg({ className }) {
               </NavLink>
             ))}
 
-            {/* Cart always at bottom of nav items */}
+            {/* ✅ NEW: Dashboard Link (Only for logged-in users) */}
+            {isAuthenticated && user && (
+              <NavLink 
+                to="/dashboard" 
+                className={navLinkClass}
+                onClick={() => setOpen(false)}
+              >
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
+                  />
+                </svg>
+                Dashboard
+              </NavLink>
+            )}
+
+            {/* Cart Link */}
             <NavLink to="/cart" className={navLinkClass} onClick={() => setOpen(false)}>
               <div className="relative">
                 <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,22 +134,31 @@ function Humberg({ className }) {
             </NavLink>
           </nav>
 
-          {/* Auth Section - Looks premium */}
+          {/* Auth Section */}
           <div className="p-6 border-t border-white/10 bg-black/40 backdrop-blur-sm">
             {isAuthenticated ? (
-              <button
-                onClick={() => {
-                  dispatch(logoutUser());
-                  setOpen(false);
-                }}
-                className={authButtonClass}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-                Logout
-              </button>
+              <div className="space-y-3">
+                {/* ✅ User Info Card */}
+                <div className="px-6 py-4 rounded-xl bg-white/5 border border-white/10 mb-4">
+                  <p className="text-sm text-gray-400 mb-1">Logged in as</p>
+                  <p className="text-white font-semibold truncate">{user?.name || user?.email}</p>
+                </div>
+
+                {/* Logout Button */}
+                <button
+                  onClick={() => {
+                    dispatch(logoutUser());
+                    setOpen(false);
+                  }}
+                  className={authButtonClass}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                  Logout
+                </button>
+              </div>
             ) : (
               <div className="space-y-4">
                 <NavLink

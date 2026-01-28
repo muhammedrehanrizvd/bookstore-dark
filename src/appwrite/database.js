@@ -1,4 +1,4 @@
-import conf from "./config";
+import conf from "../conf/conf";
 import { Client, Databases, ID,Query } from "appwrite";
 import authService from "./auth";
 import storageservice, { StorageService } from "./storage";
@@ -21,7 +21,7 @@ async addBook({ title, author, price, description, genre, file }) {
   try {
     const user = await authService.getCurrentUser();
 
-    const uploadedFile = await storageservice.uploadFile(file);
+    const uploadedFile = await storageservice.uploadFile({file});
 
     return await this.databases.createDocument(
       conf.appwriteDatabaseId,
@@ -99,6 +99,29 @@ async createPurchase(book) {
     throw error;
   }
 }
+
+          // ✅ FETCH BOOKS BY GENRE
+  async fetchBooksByGenre({ genre, limit = 6 }) {
+    try {
+       
+      const response = await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteBooksCollectionId,
+        [
+          Query.equal("genre", genre), // 🎯 backend filtering
+          Query.limit(limit),
+          Query.orderDesc('$createdAt')
+        ]
+      );
+          
+      return response.documents;
+      
+    } catch (error) {
+      console.error("Database :: fetchBooksByGenre :: error", error);
+      throw error;
+    }
+  }
+
 
   
 }

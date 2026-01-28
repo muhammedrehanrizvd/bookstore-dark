@@ -1,19 +1,32 @@
-import React from "react";
+import React , {useState} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { addToCart, } from "../../../App/slices/CartSlice";
-
 import { FaBook, FaStar, FaRegStar, FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa';
+import storageservice from "../../../appwrite/storage";
+import { setCheckoutItems } from "../../../App/slices/checkoutSlice";
  
 
-const BookDetail = ({ books }) => {
+const BookDetail = () => {
   const { id } = useParams(); // get id from URL
   const dispatch = useDispatch();
   const CartItems = useSelector(state=>state.cart.items);
   const Isincart = CartItems.find(item=>item.id==id);
   const navigate = useNavigate();
-  const book = books.find(b => b.id == id);
+ const { booksByGenre } = useSelector(state => state.book);
 
+const allBooks = Object.values(booksByGenre).flat();
+const book = allBooks.find(b => b.$id === id);
+// ---------------- QUANTITY STATE ----------------
+  const [qty, setQty] = useState(1);
+const handleQuantityChange = (newQty) => {
+    if (newQty >= 1 && newQty <= 99) {  // reasonable max quantity
+      setQty(newQty);
+    }
+  };
+
+  const increment = () => handleQuantityChange(qty + 1);
+  const decrement = () => handleQuantityChange(qty - 1);
   if (!book) return <p className="text-white">Book not found</p>;
 
   return (
@@ -35,7 +48,7 @@ const BookDetail = ({ books }) => {
         <div className="lg:w-2/5 p-8 lg:p-12 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
           {book.image ? (
             <img
-              src={book.image}
+              src={storageservice.getFilePreview(book.coverImage)}
               alt={book.title}
               className="w-full max-w-md h-auto rounded-xl shadow-2xl hover:scale-105 transition-transform duration-500"
             />
@@ -107,6 +120,43 @@ const BookDetail = ({ books }) => {
 
           {/* Action Buttons */}
           <div className="space-y-4">
+
+                {/* Quantity Selector */}
+              <div className="mb-6">
+                <label className="block text-gray-700 font-medium mb-2">Quantity</label>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={decrement}
+                    disabled={qty <= 1}
+                    className="w-10 h-10 sm:w-12 text-black sm:h-12 flex items-center justify-center rounded-lg border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                  >
+                    <span className="text-xl font-bold">-</span>
+                  </button>
+
+                  <input
+                    type="number"
+                    min="1"
+                    max="99"
+                    value={qty}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
+                      if (!isNaN(val)) handleQuantityChange(val);
+                    }}
+                    className="w-16 sm:w-20 h-10 sm:h-12 text-black text-center text-lg font-medium border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={increment}
+                    disabled={qty >= 99}
+                    className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg border border-gray-300 text-black bg-white hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                  >
+                    <span className="text-xl font-bold">+</span>
+                  </button>
+                </div>
+              </div>
+
             {/* Quantity & Add to Cart */}
             <div className="flex items-center gap-6">
               
@@ -123,11 +173,26 @@ const BookDetail = ({ books }) => {
               </button>
             </div>
 
+            
+            
+
+
             {/* Buy Now & Wishlist */}
             <div className="flex gap-4">
-              <button className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition">
-                Buy Now
-              </button>
+             <button
+                  onClick={() => {
+                    dispatch(
+                      setCheckoutItems({
+                        items: [{ ...book, quantity: qty }],
+                        source: "buyNow",
+                      })
+                    );
+                    navigate("/checkout");
+                  }}
+                  className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition"
+                >
+                  Buy Now
+                </button>
 
               <button className="p-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition">
                 <FaRegHeart className="text-2xl text-gray-600 hover:text-red-500 transition" />

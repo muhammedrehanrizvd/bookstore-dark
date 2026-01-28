@@ -12,7 +12,7 @@ const cartSlice = createSlice({
     // ➕ Add to cart
     addToCart(state, action) {
   const book = action.payload;
-state.items.push({ ...book, qty: 1 });
+state.items.push({ ...book,id:book.$id, qty: 1 });
     
 saveCartsToLocalStorage(state.items);
 

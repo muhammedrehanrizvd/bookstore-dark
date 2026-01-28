@@ -23,7 +23,7 @@ function AuthButtons() {
       <button
         onClick={() => dispatch(logoutUser())}
         className="
-          hidden sm:flex items-center justify-center
+          hidden lg:flex items-center justify-center
           px-6 py-2.5
           bg-gradient-to-r from-red-600/90 to-rose-600/90
           hover:from-red-500 hover:to-rose-500

@@ -1,7 +1,8 @@
 import { useMemo, useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
 import Allbook from "./Allbook";
-import books from "./booksdata";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAllBooks, fetchBooksByGenre } from "../../../App/slices/BookSlice";
 import BookCard from "./BookCard";
 import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
@@ -10,10 +11,30 @@ function Books() {
   const [isDrop, setDrop] = useState(false);
   const [activeGenre, setActiveGenre] = useState(null);
   const [visible, setVisible] = useState(12);
+    const  {booksByGenre , genres} = useSelector(state=>state.book)
+        const dispatch = useDispatch();
+          useEffect(() => {
+            dispatch(fetchAllBooks());
+          }, [dispatch]);
+        
+          // ✅ Step 2: Fetch books for each genre (only if not loaded)
+          useEffect(() => {
+            if (genres.length > 0) {
+              genres.forEach((genre) => {
+                if (!booksByGenre[genre]) {  // ✅ FIXED: Prevent infinite loop
+                  dispatch(fetchBooksByGenre({ genre, limit: 6 }));
+                }
+              });
+            }
+          }, [genres, dispatch, booksByGenre]);
+        
 
   const filteredBooks = useMemo(() => {
-    return activeGenre ? books.filter(book => book.genre === activeGenre) : null;
-  }, [activeGenre]);
+  if (!activeGenre) return null;
+
+  return booksByGenre[activeGenre] || [];
+}, [activeGenre, booksByGenre]);
+
 
   const { id } = useParams();
   const paginatedBooks = filteredBooks ? filteredBooks.slice(0, visible) : [];

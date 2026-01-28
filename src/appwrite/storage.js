@@ -1,5 +1,5 @@
-import conf from './config.js'
-import { Client, ID, Storage } from "appwrite"
+import conf from "../conf/conf"
+import { Client, ID, Storage,Permission, Role  } from "appwrite"
 
 export class StorageService {
     client = new Client()
@@ -17,7 +17,11 @@ export class StorageService {
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),
-                file
+                file,
+                [
+    Permission.read(Role.users()), // 👈 logged-in users
+  ]
+
             )
         } catch (error) {
             console.log("Appwrite storage :: uploadFile :: error", error)

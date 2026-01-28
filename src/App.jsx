@@ -11,9 +11,12 @@ import { useNavigate } from 'react-router-dom'
 function App() {
   const dispatch = useDispatch();
 
- 
   useEffect(() => {
-    dispatch(checkAuth()); // ✅ bas itna
+    // ✅ Check auth but DON'T block app if it fails
+    dispatch(checkAuth()).catch(() => {
+      // Silent fail - user just not logged in
+      console.log('No active session - user not logged in');
+    });
   }, [dispatch]);
 
 

@@ -4,7 +4,11 @@ import { useSelector } from 'react-redux';
 import Humberg from './Humberg';
 import { selectTotalQuantity } from '../../App/slices/CartSelectors';
 import AuthButtons from '../form/AuthButtons';
+
 function Nav() {
+  // ✅ Get auth state
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+
   const navLinkClass = ({ isActive }) =>
     `relative px-5 py-3 text-gray-300 font-medium text-base 
      transition-all duration-400 ease-out
@@ -38,19 +42,28 @@ function Nav() {
         </NavLink>
 
         {/* Desktop Navigation - Center */}
-        <div className="hidden sm:flex items-center space-x-2">
+        <div className="hidden lg:flex items-center space-x-2">
           <NavLink className={navLinkClass} to="/">Home</NavLink>
           <NavLink className={navLinkClass} to="/about">About</NavLink>
           <NavLink className={navLinkClass} to="/stores">Stores</NavLink>
           <NavLink className={navLinkClass} to="/books">Books</NavLink>
+          
+          {/* ✅ NEW: Dashboard Link (only for logged-in users) */}
+          {isAuthenticated && user && (
+            <NavLink className={navLinkClass} to="/dashboard">
+              Dashboard
+            </NavLink>
+          )}
         </div>
 
-        {/* Right Side: Join Button + Cart Icon + Mobile Hamburger Trigger */}
-        <div className="flex items-center gap-4">
+        {/* Right Side: Dashboard Icon + Cart + Auth Buttons */}
+        <div className="flex items-center gap-3">
+          
+          
           {/* Cart Icon */}
           <NavLink
             to="/cart"
-            className="hidden sm:flex relative items-center justify-center p-3 rounded-full 
+            className="hidden lg:flex relative items-center justify-center p-3 rounded-full 
                        bg-white/5 backdrop-blur-sm border border-white/10
                        hover:bg-white/10 hover:border-purple-500/50
                        hover:scale-110 transition-all duration-400 group"
@@ -85,11 +98,11 @@ function Nav() {
             )}
           </NavLink>
 
-          {/* Desktop Join Button */}
-          <AuthButtons/>
+          {/* Auth Buttons (Login/Logout) */}
+          <AuthButtons />
 
-          {/* Mobile Hamburger Trigger – Only this stays in Nav */}
-          <div className="sm:hidden">
+          {/* Mobile Hamburger */}
+          <div className="lg:hidden">
             <Humberg className="text-white" />
           </div>
         </div>
