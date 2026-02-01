@@ -101,8 +101,7 @@ const bookSlice = createSlice({
   name: "books",
 initialState: {
   booksByGenre: {}, 
-  purchasedbooks:[],    // { History: [...], Science: [...] }
-  genreLoading: {},     // { History: true }
+   genreLoading: {},     // { History: true }
   genres: [],
   isLoading:false,
   genresLoading: false,

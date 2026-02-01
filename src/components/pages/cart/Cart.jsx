@@ -4,7 +4,7 @@ import { clearCart } from '../../../App/slices/CartSlice';
 import CartItem from './CartItem';
 import { selectTotalPrice, selectTotalQuantity } from '../../../App/slices/CartSelectors';
 import { useNavigate } from 'react-router-dom';
-
+import { setCheckoutItems } from '../../../App/slices/checkoutSlice';
 function Cart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -58,8 +58,8 @@ function Cart() {
           {/* Cart Items List – Takes full width on mobile, 2/3 on large */}
           <div className="lg:col-span-2 space-y-6 md:space-y-8">
             {cartItems.map(item => (
-              <div 
-                key={item.id} 
+              <div
+                key={item.id}
                 className="
                   w-full               /* ← Full width on all screens */
                   max-w-[100%]         /* ← Prevents overflow on very small phones */
@@ -103,7 +103,15 @@ function Cart() {
             </div>
 
             {/* Checkout Button */}
-            <button className="
+            <button
+              onClick={() => {
+                dispatch(setCheckoutItems({
+                  items: cartItems.map(item => ({ ...item, quantity: item.qty || 1 })),
+                  source: "cart"
+                }));
+                navigate("/checkout");
+              }}
+              className="
               w-full py-5 mb-4
               bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600
               hover:from-purple-500 hover:via-pink-500 hover:to-blue-500

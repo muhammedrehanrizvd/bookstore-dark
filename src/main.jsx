@@ -21,6 +21,8 @@ import Dashboard from './components/pages/dashboard/Dashboard.jsx';
 import { store } from "./App/ReduxStore.js";
 import Cart from './components/pages/cart/Cart.jsx';
 import Sellbook from './components/pages/dashboard/Sellbook.jsx';
+import Checkout from './components/pages/checkout/checkout.jsx';
+import OrderSuccess from './components/pages/ordersuccess/OrderSuccess.jsx';
 
 const router = createBrowserRouter([
   {
@@ -67,6 +69,14 @@ const router = createBrowserRouter([
             {
               path:'sellbook',
               element:<Sellbook/>
+            },
+            {
+              path:'checkout',
+              element:<Checkout/>
+            },
+            {
+              path:'order-success',
+              element:<OrderSuccess/>
             }
     ],
   }
